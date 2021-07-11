@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Clean-Architecture-.iml" filepath="$PROJECT_DIR$/.idea/modules/Clean-Architecture-.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Clean-Architecture-.buildSrc.iml" filepath="$PROJECT_DIR$/.idea/modules/Clean-Architecture-.buildSrc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/data/Clean-Architecture-.data.iml" filepath="$PROJECT_DIR$/.idea/modules/data/Clean-Architecture-.data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/Clean-Architecture-.domain.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/Clean-Architecture-.domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/presentation/Clean-Architecture-.presentation.iml" filepath="$PROJECT_DIR$/.idea/modules/presentation/Clean-Architecture-.presentation.iml" />
+    </modules>
+  </component>
+</project>

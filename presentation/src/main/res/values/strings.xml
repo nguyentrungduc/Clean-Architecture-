@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Clean Architecture</string>
+    <string name="contributor">Contributor</string>
+    <string name="search_hint">Input to search</string>
+    <string name="search_btn_title">Search</string>
+    <string name="title_home">Home</string>
+    <string name="title_account">Account</string>
+    <string name="title_tech">Tech</string>
+    <string name="title_newsfeed">NewsFeed</string>
+    <string name="detail_newsfeed_title">Detail NewsFeed</string>
+</resources>
