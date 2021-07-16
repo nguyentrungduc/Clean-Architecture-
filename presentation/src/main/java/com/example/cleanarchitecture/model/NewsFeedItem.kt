@@ -5,7 +5,7 @@ import com.example.cleanarchitecture.base.ModelItem
 import com.example.cleanarchitecture.domain.model.*
 import javax.inject.Inject
 
-data class NewsFeedItem(val documentId: String?,
+data class NewsFeedItem(val documentId: String,
                        val title: String?,
                        val description: String?,
                        val contentType: String?,

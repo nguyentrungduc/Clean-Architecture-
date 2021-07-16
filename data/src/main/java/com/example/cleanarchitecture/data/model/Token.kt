@@ -1,10 +1,9 @@
 package com.example.cleanarchitecture.data.model
 
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
+import com.example.cleanarchitecture.data.base.ModelEntity
 
-data class Token(
-    @Expose @SerializedName("token") val token: String,
-    @Expose @SerializedName("refresh_token") val refreshToken: String,
-    @Expose @SerializedName("expires_in") val expireIn: Long
-)
+open class Token(
+    var token: String = "",
+    var refreshToken: String = "",
+    var expireIn: Long = 0
+) : ModelEntity()

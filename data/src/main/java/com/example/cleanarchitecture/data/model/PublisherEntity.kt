@@ -1,21 +1,21 @@
 package com.example.cleanarchitecture.data.model
 
-import com.example.cleanarchitecture.data.base.EntityMapper
-import com.example.cleanarchitecture.data.base.ModelEntity
+import com.example.cleanarchitecture.data.base.RealmEntityMapper
 import com.example.cleanarchitecture.domain.model.Publisher
 import com.google.gson.annotations.SerializedName
+import io.realm.RealmObject
 import javax.inject.Inject
 
-data class PublisherEntity(
+open class PublisherEntity(
     @SerializedName("id")
-    val id: String?,
+    var id: String? = null,
     @SerializedName("name")
-    val name: String?,
+    var name: String? = null,
     @SerializedName("icon")
-    val icon: String?
-): ModelEntity()
+    var icon: String? = null
+): RealmObject()
 
-class PublisherEntityMapper @Inject constructor() : EntityMapper<Publisher, PublisherEntity> {
+class PublisherEntityMapper @Inject constructor() : RealmEntityMapper<Publisher, PublisherEntity> {
 
     override fun mapToDomain(entity: PublisherEntity)= Publisher (
         entity.id, entity.name, entity.icon

@@ -48,6 +48,7 @@ object Url {
 object BuildPlugins {
     const val androidPlugin = "com.android.tools.build:gradle:${Versions.androidPlugin}"
     const val navigationSafe = "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigationSafe}"
+    const val realm = "io.realm:realm-gradle-plugin:10.7.0-SNAPSHOT"
 }
 
 object Android {
@@ -68,6 +69,8 @@ object GradlePlugins {
     const val androidLib = "com.android.library"
     const val navigationSafe = "androidx.navigation.safeargs"
     const val navigationSafeKotlin = "androidx.navigation.safeargs.kotlin"
+    const val realm = "realm-android"
+    const val kotlinKapt = "kotlin-kapt"
 }
 
 object Modules {

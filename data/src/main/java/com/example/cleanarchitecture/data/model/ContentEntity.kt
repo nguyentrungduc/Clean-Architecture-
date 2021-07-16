@@ -5,9 +5,11 @@ import com.example.cleanarchitecture.data.base.EntityMapper
 import com.example.cleanarchitecture.data.base.ModelEntity
 import com.example.cleanarchitecture.domain.model.Content
 import com.google.gson.annotations.SerializedName
+import io.realm.RealmList
+import io.realm.annotations.Ignore
 import javax.inject.Inject
 
-data class ContentEntity(
+open class ContentEntity(
     @SerializedName("href")
     val href: String?,
     @SerializedName("caption")
@@ -18,8 +20,9 @@ data class ContentEntity(
     val previewImageEntity: ImageEntity?,
     @SerializedName("text")
     val text: String?,
+    @Ignore
     @SerializedName("markups")
-    val markupEntities: List<MarkupEntity>?,
+    val markupEntities: RealmList<MarkupEntity>?,
     @SerializedName("main_color")
     val mainColor: String?,
     @SerializedName("original_width")
@@ -47,7 +50,7 @@ class ContentEntityMapper @Inject constructor(
         model.href, model.caption, model.duration,
         model.previewImageEntity?.let { imageEntityMapper.mapToEntity(it) },
         model.text,
-        model.markupEntities?.let { it.map { markupEntityMapper.mapToEntity(it) } },
+        model.markupEntities?.let { it.map { markupEntityMapper.mapToEntity(it) } } as RealmList<MarkupEntity>?,
         model.mainColor,
         model.originalWidth,
         model.originalHeight

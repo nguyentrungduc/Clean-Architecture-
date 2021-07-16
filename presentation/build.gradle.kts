@@ -3,6 +3,8 @@ plugins {
     kotlin(GradlePlugins.kotlinAndroid)
     kotlin(GradlePlugins.kotlinApt)
     kotlin(GradlePlugins.kotlinExt)
+    id(GradlePlugins.kotlinKapt)
+    id(GradlePlugins.realm)
 }
 
 apply {

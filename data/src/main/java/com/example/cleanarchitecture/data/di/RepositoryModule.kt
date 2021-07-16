@@ -6,11 +6,13 @@ import com.example.cleanarchitecture.data.*
 import com.example.cleanarchitecture.data.local.db.AppDatabase
 import com.example.cleanarchitecture.data.local.pref.AppPrefs
 import com.example.cleanarchitecture.data.local.pref.PrefHelper
+import com.example.cleanarchitecture.data.remote.NewsFeedRemoteRepositotyImpl
 import com.example.cleanarchitecture.domain.repository.NewsfeedRepository
 import com.example.cleanarchitecture.domain.repository.UserRepository
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
+import io.realm.Realm
 import javax.inject.Singleton
 
 @Module
@@ -26,6 +28,12 @@ class RepositoryModule {
     fun provideAppDatabase(@DatabaseInfo dbName: String, context: Context): AppDatabase {
         return Room.databaseBuilder(context, AppDatabase::class.java, dbName).fallbackToDestructiveMigration()
                 .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideRealmDatabase(context: Context): Realm {
+        return Realm.getDefaultInstance()
     }
 
     @Provides
@@ -48,7 +56,7 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun providerNewFeedRepository(repository: NewsFeedRepositoryImpl): NewsfeedRepository {
+    fun providerNewFeedRepository(repository: NewsFeedRemoteRepositotyImpl): NewsfeedRepository {
         return repository
     }
 }

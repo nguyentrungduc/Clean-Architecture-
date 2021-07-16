@@ -4,14 +4,17 @@ import com.example.cleanarchitecture.data.base.EntityMapper
 import com.example.cleanarchitecture.data.base.ModelEntity
 import com.example.cleanarchitecture.domain.model.ListNewsFeed
 import com.google.gson.annotations.SerializedName
+import io.realm.RealmList
+import io.realm.RealmModel
+import io.realm.RealmObject
+import io.realm.annotations.RealmClass
 import javax.inject.Inject
 
-data class ListNewsFeedEntity(
+open class ListNewsFeedEntity(
     @SerializedName("items")
-    val itemsEntity: List<NewFeedEntity>?
+    var itemsEntity: List<NewFeedEntity>? = null
 
 ) : ModelEntity()
-
 class ListNewsFeedEntityMapper @Inject constructor(
     private val newFeedEntityMapper: NewFeedEntityMapper
 ) : EntityMapper<ListNewsFeed, ListNewsFeedEntity> {
@@ -20,6 +23,6 @@ class ListNewsFeedEntityMapper @Inject constructor(
     )
 
     override fun mapToEntity(model: ListNewsFeed) = ListNewsFeedEntity(
-        model.listNewsFeed?.let { it.map { newFeedEntityMapper.mapToEntity(it) } }
+        model.listNewsFeed?.let { it.map { newFeedEntityMapper.mapToEntity(it) } } as RealmList<NewFeedEntity>?
     )
 }

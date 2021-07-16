@@ -5,13 +5,14 @@ import com.example.cleanarchitecture.data.base.EntityMapper
 import com.example.cleanarchitecture.data.base.ModelEntity
 import com.example.cleanarchitecture.domain.model.Section
 import com.google.gson.annotations.SerializedName
+import io.realm.RealmObject
 import javax.inject.Inject
 
-data class SectionEntity(
+open class SectionEntity(
     @SerializedName("section_type")
-    val sectionType: Int?,
+    var sectionType: Int? = null,
     @SerializedName("content")
-    val contentEntity: ContentEntity?
+    var contentEntity: ContentEntity? = null
 ): ModelEntity()
 
 class SectionEntityMapper @Inject constructor(private val contentEntityMapper: ContentEntityMapper) : EntityMapper<Section, SectionEntity> {

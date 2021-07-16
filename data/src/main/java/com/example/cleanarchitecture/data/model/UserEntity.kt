@@ -5,6 +5,7 @@ import com.example.cleanarchitecture.data.base.EntityMapper
 import com.example.cleanarchitecture.data.base.ModelEntity
 import com.example.cleanarchitecture.domain.model.User
 import com.google.gson.annotations.SerializedName
+import io.realm.RealmObject
 import javax.inject.Inject
 
 @Entity(tableName = "user", primaryKeys = ["id"])

@@ -1,6 +1,6 @@
 package com.example.cleanarchitecture.domain.model
 
-data class NewsFeed(val documentId: String?,
+data class NewsFeed(val documentId: String,
                     val title: String?,
                     val description: String?,
                     val contentType: String?,
