@@ -10,6 +10,6 @@ interface NewsFeedApi {
     @GET("/Akaizz/static/master/newsfeed.json")
     fun getNewFeeds(): Observable<ListNewsFeedEntity>
 
-    @GET("/Akaizz/static/master/newsfeed.json")
+    @GET("/Akaizz/static/master/detail.json")
     fun getDetailFeed(): Observable<DetailNewsFeedEntity>
 }

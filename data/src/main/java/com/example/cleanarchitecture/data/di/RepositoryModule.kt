@@ -6,7 +6,6 @@ import com.example.cleanarchitecture.data.*
 import com.example.cleanarchitecture.data.local.db.AppDatabase
 import com.example.cleanarchitecture.data.local.pref.AppPrefs
 import com.example.cleanarchitecture.data.local.pref.PrefHelper
-import com.example.cleanarchitecture.data.remote.NewsFeedRemoteRepositotyImpl
 import com.example.cleanarchitecture.domain.repository.NewsfeedRepository
 import com.example.cleanarchitecture.domain.repository.UserRepository
 import com.google.gson.Gson
@@ -32,7 +31,7 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideRealmDatabase(context: Context): Realm {
+    fun provideRealmDatabase(): Realm {
         return Realm.getDefaultInstance()
     }
 
@@ -56,7 +55,7 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun providerNewFeedRepository(repository: NewsFeedRemoteRepositotyImpl): NewsfeedRepository {
+    fun providerNewFeedRepository(repository: NewsFeedRepositoryImpl): NewsfeedRepository {
         return repository
     }
 }

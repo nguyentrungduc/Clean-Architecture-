@@ -7,15 +7,15 @@ import com.example.cleanarchitecture.domain.model.Markup
 import com.google.gson.annotations.SerializedName
 import javax.inject.Inject
 
-open class MarkupEntity(
+data class MarkupEntity(
     @SerializedName("markup_type")
-    var markupType: Int? = null,
+    var markupType: Int?,
     @SerializedName("start")
-    var start: Int? = null,
+    var start: Int?,
     @SerializedName("end")
-    var end: Int? = null,
+    var end: Int?,
     @SerializedName("href")
-    var href: String? = null
+    var href: String?
 ): ModelEntity()
 
 class MarkupEntityMapper @Inject constructor() : EntityMapper<Markup, MarkupEntity> {

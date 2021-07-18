@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import com.example.cleanarchitecture.BR
 import com.example.cleanarchitecture.R
 import com.example.cleanarchitecture.base.BaseFragment
@@ -21,10 +22,22 @@ class DetailFeedFragment : BaseFragment<FragmentDetailFeedBinding, DetailFeedVie
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getDetailFeed()
+        bindViews()
         subscribeUI()
     }
 
+    private fun bindViews() {
+        with(viewDataBinding) {
+            imvBack.setOnClickListener {
+                findNavController().popBackStack()
+            }
+        }
+    }
+
     private fun subscribeUI() = with(viewModel) {
+        loading.observe(viewLifecycleOwner) { loading ->
+            viewDataBinding.loading.visibility = if (loading) View.VISIBLE else View.GONE
+        }
         detail.observe(viewLifecycleOwner) {
             viewDataBinding.newsFeed = it
         }

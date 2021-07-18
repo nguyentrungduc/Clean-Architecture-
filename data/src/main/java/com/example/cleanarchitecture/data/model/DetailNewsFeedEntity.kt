@@ -5,26 +5,25 @@ import com.example.cleanarchitecture.data.base.EntityMapper
 import com.example.cleanarchitecture.data.base.ModelEntity
 import com.example.cleanarchitecture.domain.model.DetailNewsFeed
 import com.google.gson.annotations.SerializedName
-import io.realm.RealmList
 import javax.inject.Inject
 
-open class DetailNewsFeedEntity(
+data class DetailNewsFeedEntity(
     @SerializedName("document_id")
-    var documentId: String?= null,
+    var documentId: String?,
     @SerializedName("title")
-    var title: String?= null,
+    var title: String?,
     @SerializedName("description")
-    var description: String?= null,
+    var description: String?,
     @SerializedName("published_date")
-    var publishedDate: String?= null,
+    var publishedDate: String?,
     @SerializedName("origin_url")
-    var originUrl: String?= null,
+    var originUrl: String?,
     @SerializedName("publisher")
-    var publisher: PublisherEntity?= null,
+    var publisher: PublisherEntity?,
     @SerializedName("template_type")
-    var templateType: String?= null,
+    var templateType: String?,
     @SerializedName("sections")
-    var sectionEntities: RealmList<SectionEntity>?= null
+    var sectionEntities: List<SectionEntity>?
 ): ModelEntity()
 
 class DetailNewsFeedEntityMapper @Inject constructor(
@@ -47,6 +46,6 @@ class DetailNewsFeedEntityMapper @Inject constructor(
         model.originUrl,
         model.publisher?.let { publisherEntityMapper.mapToEntity(it)  },
         model.templateType,
-        model.sectionEntities?.let { it.map { sectionEntityMapper.mapToEntity(it) } } as RealmList<SectionEntity>?
+        model.sectionEntities?.let { it.map { sectionEntityMapper.mapToEntity(it) } } 
     )
 }

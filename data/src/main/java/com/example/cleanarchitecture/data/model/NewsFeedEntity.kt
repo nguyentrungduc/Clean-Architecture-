@@ -2,6 +2,7 @@ package com.example.cleanarchitecture.data.model
 
 
 import com.example.cleanarchitecture.data.base.RealmEntityMapper
+import com.example.cleanarchitecture.domain.model.Image
 import com.example.cleanarchitecture.domain.model.NewsFeed
 import com.google.gson.annotations.SerializedName
 import io.realm.RealmList
@@ -10,7 +11,7 @@ import io.realm.annotations.Ignore
 import javax.inject.Inject
 
 
-open class NewFeedEntity(
+open class NewsFeedEntity(
     @SerializedName("document_id")
     var documentId: String = "",
     @SerializedName("title")
@@ -32,14 +33,16 @@ open class NewFeedEntity(
     @Ignore
     @SerializedName("content")
     var content: Any? = null
-) : RealmObject()
+) : RealmObject() {
+    constructor() : this("", null, null,null, null, null, null,null, null, null)
+}
 
-class NewFeedEntityMapper @Inject constructor(private val publisherEntityMapper: PublisherEntityMapper,
-                                              private val avatarEntityMapper: AvatarEntityMapper,
-                                              private val imageEntityMapper: ImageEntityMapper)
-    : RealmEntityMapper<NewsFeed, NewFeedEntity> {
+class NewsFeedEntityMapper @Inject constructor(private val publisherEntityMapper: PublisherEntityMapper,
+                                               private val avatarEntityMapper: AvatarEntityMapper,
+                                               private val imageEntityMapper: ImageEntityMapper)
+    : RealmEntityMapper<NewsFeed, NewsFeedEntity> {
 
-    override fun mapToDomain(entity: NewFeedEntity) = NewsFeed(
+    override fun mapToDomain(entity: NewsFeedEntity) = NewsFeed(
         entity.documentId, entity.title, entity.description, entity.contentType, entity.publishedDate,
         entity.publisherEntity?.let { publisherEntityMapper.mapToDomain(it) },
         entity.originUrl,
@@ -48,13 +51,21 @@ class NewFeedEntityMapper @Inject constructor(private val publisherEntityMapper:
         entity.content
     )
 
-    override fun mapToEntity(model: NewsFeed) = NewFeedEntity(
+    override fun mapToEntity(model: NewsFeed) = NewsFeedEntity(
         model.documentId, model.title, model.description, model.contentType, model.publishedDate,
         model.publisher?.let { publisherEntityMapper.mapToEntity(it) },
         model.originUrl,
         model.avatar?.let { avatarEntityMapper.mapToEntity(it) },
-        model.images?.let { it.map { imageEntityMapper.mapToEntity(it) } } as RealmList<ImageEntity>?,
+        model.images?.let { parseToRealmList(it, imageEntityMapper) },
         model.content
     )
+
+    private fun parseToRealmList(listImage: List<Image>, imageEntityMapper: ImageEntityMapper): RealmList<ImageEntity> {
+        val list = RealmList<ImageEntity>()
+        listImage.forEach {
+            list.add(imageEntityMapper.mapToEntity(it))
+        }
+        return list
+    }
 }
 

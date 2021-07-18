@@ -1,6 +1,5 @@
 package com.example.cleanarchitecture.ui.newsfeed
 
-import android.util.Log
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.MutableLiveData
 import com.example.cleanarchitecture.base.BaseViewModel

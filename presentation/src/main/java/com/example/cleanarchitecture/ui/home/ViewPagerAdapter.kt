@@ -12,7 +12,6 @@ class ViewPagerAdapter(private val fragment: Fragment) :
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> TechFragment()
             1 -> NewsfeedFragment()
             else -> TechFragment()
         }

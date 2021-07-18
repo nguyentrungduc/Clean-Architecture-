@@ -7,7 +7,9 @@ import com.example.cleanarchitecture.base.BaseViewHolder
 import com.example.cleanarchitecture.databinding.ItemNewsFeedBinding
 import com.example.cleanarchitecture.databinding.ItemNewsFeedType1Binding
 import com.example.cleanarchitecture.databinding.ItemNewsFeedType2Binding
+import com.example.cleanarchitecture.model.ImageItem
 import com.example.cleanarchitecture.model.NewsFeedItem
+import com.google.android.material.tabs.TabLayoutMediator
 
 class NewsFeedAdapter(private val callback: ((NewsFeedItem) -> Unit)?
 ) :
@@ -44,10 +46,18 @@ class NewsFeedAdapter(private val callback: ((NewsFeedItem) -> Unit)?
     inner class NewsFeedViewHolder(private val binding: ItemNewsFeedBinding) :
         BaseViewHolder<NewsFeedItem>(binding.root) {
         override fun bind(modelItem: NewsFeedItem) {
-            binding.newsFeed = modelItem
-            binding.executePendingBindings()
-            binding.root.setOnClickListener {
-                callback?.invoke(modelItem)
+            with(binding) {
+                newsFeed = modelItem
+                val adapter = BannerPagerAdapter(binding.root.context)
+                newsFeedViewPager.adapter = adapter
+                modelItem.imagesItem?.let {
+                    adapter.updateData(it as MutableList<ImageItem>)
+                }
+                tabLayoutIndicator.setupWithViewPager(newsFeedViewPager)
+                executePendingBindings()
+                root.setOnClickListener {
+                    callback?.invoke(modelItem)
+                }
             }
         }
     }
@@ -55,10 +65,12 @@ class NewsFeedAdapter(private val callback: ((NewsFeedItem) -> Unit)?
     inner class NewsFeedType1ViewHolder(private val binding: ItemNewsFeedType1Binding) :
         BaseViewHolder<NewsFeedItem>(binding.root) {
         override fun bind(modelItem: NewsFeedItem) {
-            binding.newsFeed = modelItem
-            binding.executePendingBindings()
-            binding.root.setOnClickListener {
-                callback?.invoke(modelItem)
+            with(binding) {
+                newsFeed = modelItem
+                executePendingBindings()
+                root.setOnClickListener {
+                    callback?.invoke(modelItem)
+                }
             }
         }
     }
@@ -66,10 +78,12 @@ class NewsFeedAdapter(private val callback: ((NewsFeedItem) -> Unit)?
     inner class NewsFeedType2ViewHolder(private val binding: ItemNewsFeedType2Binding) :
         BaseViewHolder<NewsFeedItem>(binding.root) {
         override fun bind(modelItem: NewsFeedItem) {
-            binding.newsFeed = modelItem
-            binding.executePendingBindings()
-            binding.root.setOnClickListener {
-                callback?.invoke(modelItem)
+            with(binding) {
+                newsFeed = modelItem
+                executePendingBindings()
+                root.setOnClickListener {
+                    callback?.invoke(modelItem)
+                }
             }
         }
     }

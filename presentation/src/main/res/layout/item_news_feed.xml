@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -13,26 +12,36 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_240"
-        android:paddingVertical="@dimen/dp_2">
+        android:layout_height="@dimen/dp_240">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            imageUrl="@{newsFeed.imagesItem}"
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/newsFeedViewPager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY" />
+            android:layout_height="match_parent" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayoutIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:tabBackground="@drawable/tab_selector"
+            app:tabGravity="center"
+            app:tabIndicatorHeight="0dp" />
 
         <TextView
+            android:background="#35000000"
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_12"
-            android:padding="@dimen/dp_4"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="48dp"
+            android:paddingHorizontal="@dimen/dp_12"
             android:text="@{newsFeed.title}"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:textSize="@dimen/sp_16" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+
 </layout>

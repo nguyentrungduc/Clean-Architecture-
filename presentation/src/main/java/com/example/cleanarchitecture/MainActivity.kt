@@ -1,17 +1,12 @@
 package com.example.cleanarchitecture
 
 import android.os.Bundle
-import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.cleanarchitecture.base.BaseActivity
-import com.example.cleanarchitecture.data.model.NewFeedEntity
 import com.example.cleanarchitecture.databinding.MainActivityBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import io.realm.Realm
 
 class MainActivity : BaseActivity() {
 

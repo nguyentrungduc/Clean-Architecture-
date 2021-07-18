@@ -5,10 +5,9 @@ import com.example.cleanarchitecture.data.base.EntityMapper
 import com.example.cleanarchitecture.data.base.ModelEntity
 import com.example.cleanarchitecture.domain.model.Section
 import com.google.gson.annotations.SerializedName
-import io.realm.RealmObject
 import javax.inject.Inject
 
-open class SectionEntity(
+data class SectionEntity(
     @SerializedName("section_type")
     var sectionType: Int? = null,
     @SerializedName("content")
