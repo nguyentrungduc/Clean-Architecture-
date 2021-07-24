@@ -16,7 +16,7 @@ class NewsFeedLocalRepositoryImpl @Inject constructor(
     private val newsFeedEntityMapper: NewsFeedEntityMapper,
     private val listNewsNewFeedEntityMapper: ListNewsFeedEntityMapper
 ) : NewsfeedRepository {
-    override fun getNewFeed(): Observable<ListNewsFeed> {
+    override fun getNewFeed(isConnected: Boolean): Observable<ListNewsFeed> {
         return Observable.just(listNewsNewFeedEntityMapper.mapListNewsFeed(Realm.getDefaultInstance().where<NewsFeedEntity>().findAll()))
     }
 

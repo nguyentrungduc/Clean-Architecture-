@@ -1,7 +1,6 @@
 package com.example.cleanarchitecture.ui.newsfeed
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
@@ -10,13 +9,11 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.cleanarchitecture.BR
 import com.example.cleanarchitecture.R
 import com.example.cleanarchitecture.base.BaseFragment
-import com.example.cleanarchitecture.data.model.NewsFeedEntity
 import com.example.cleanarchitecture.databinding.FragmentNewsfeedBinding
+import com.example.cleanarchitecture.extension.isConnected
 import com.example.cleanarchitecture.ui.home.HomeFragmentDirections
 import com.example.cleanarchitecture.ui.newsfeed.adapter.NewsFeedAdapter
 import com.example.cleanarchitecture.util.autoCleared
-import io.realm.Realm
-import io.realm.kotlin.where
 
 
 class NewsfeedFragment : BaseFragment<FragmentNewsfeedBinding, NewsFeedViewModel>() {
@@ -32,7 +29,14 @@ class NewsfeedFragment : BaseFragment<FragmentNewsfeedBinding, NewsFeedViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getNewsFeed()
+        viewModel.getNewsFeed(requireContext().isConnected)
+        bindViews()
+        subscribeUI()
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel.getNewsFeed(requireContext().isConnected)
         bindViews()
         subscribeUI()
     }
@@ -46,14 +50,13 @@ class NewsfeedFragment : BaseFragment<FragmentNewsfeedBinding, NewsFeedViewModel
                 DividerItemDecoration(
                     context,
                     DividerItemDecoration.VERTICAL
-                ))
+                )
+            )
             listNewsfeed.adapter = newsFeedAdapter
             pullToRefresh.setOnRefreshListener {
-                viewModel.getNewsFeed()
+                viewModel.getNewsFeed(requireContext().isConnected)
             }
         }
-        Log.d("TAGGG", " rêalm" +  Realm.getDefaultInstance().where<NewsFeedEntity>().findAll().toString())
-
     }
 
     private fun subscribeUI() = with(viewModel) {
@@ -63,7 +66,6 @@ class NewsfeedFragment : BaseFragment<FragmentNewsfeedBinding, NewsFeedViewModel
         newsfeed.observe(viewLifecycleOwner) {
             newsFeedAdapter.submitList(it.listNewsFeedItem)
             viewDataBinding.pullToRefresh.isRefreshing = false
-            Log.d("TAGGG", it.toString())
         }
     }
 }

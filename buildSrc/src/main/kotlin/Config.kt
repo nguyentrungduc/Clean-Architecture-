@@ -39,6 +39,9 @@ object Versions {
 
     internal const val viewPager2 = "1.0.0"
 
+    internal const val litho = "0.40.0"
+    internal const val soloader = "0.9.0"
+
 }
 
 object Url {

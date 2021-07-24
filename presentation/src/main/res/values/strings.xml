@@ -8,4 +8,5 @@
     <string name="title_tech">Tech</string>
     <string name="title_newsfeed">NewsFeed</string>
     <string name="detail_newsfeed_title">Detail NewsFeed</string>
+    <string name="title_another_news">Tin khác</string>
 </resources>

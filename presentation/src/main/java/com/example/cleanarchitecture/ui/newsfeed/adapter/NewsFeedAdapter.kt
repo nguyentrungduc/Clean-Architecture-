@@ -1,8 +1,10 @@
 package com.example.cleanarchitecture.ui.newsfeed.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.example.cleanarchitecture.base.BaseViewHolder
 import com.example.cleanarchitecture.databinding.ItemNewsFeedBinding
 import com.example.cleanarchitecture.databinding.ItemNewsFeedType1Binding
@@ -10,8 +12,11 @@ import com.example.cleanarchitecture.databinding.ItemNewsFeedType2Binding
 import com.example.cleanarchitecture.model.ImageItem
 import com.example.cleanarchitecture.model.NewsFeedItem
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.android.synthetic.main.item_news_feed.view.*
+import kotlin.math.abs
 
-class NewsFeedAdapter(private val callback: ((NewsFeedItem) -> Unit)?
+class NewsFeedAdapter(
+    private val callback: ((NewsFeedItem) -> Unit)?
 ) :
     ListAdapter<NewsFeedItem, BaseViewHolder<NewsFeedItem>>(NewsFeedItemDiffCallback()) {
 
@@ -40,7 +45,17 @@ class NewsFeedAdapter(private val callback: ((NewsFeedItem) -> Unit)?
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder<NewsFeedItem>, position: Int) {
-       holder.bind(getItem(position))
+        holder.bind(getItem(position))
+    }
+
+    private val animator = ViewPager2.PageTransformer { page, position ->
+        val absPos = abs(position)
+        page.apply {
+            translationY = absPos * 500f
+            val scale = if (absPos > 1) 0F else 1 - absPos
+            scaleX = scale
+            scaleY = scale
+        }
     }
 
     inner class NewsFeedViewHolder(private val binding: ItemNewsFeedBinding) :
@@ -48,16 +63,25 @@ class NewsFeedAdapter(private val callback: ((NewsFeedItem) -> Unit)?
         override fun bind(modelItem: NewsFeedItem) {
             with(binding) {
                 newsFeed = modelItem
-                val adapter = BannerPagerAdapter(binding.root.context)
-                newsFeedViewPager.adapter = adapter
-                modelItem.imagesItem?.let {
-                    adapter.updateData(it as MutableList<ImageItem>)
+                if (modelItem.imagesItem.isNullOrEmpty()) {
+                    newsFeedViewPager.visibility = View.GONE
+                    binding.frameView.setOnClickListener {
+                        callback?.invoke(modelItem)
+                    }
+                    return
                 }
-                tabLayoutIndicator.setupWithViewPager(newsFeedViewPager)
-                executePendingBindings()
-                root.setOnClickListener {
-                    callback?.invoke(modelItem)
+                val bannerAdapter = BannerPagerAdapter(object : OnImageClickListener {
+                    override fun onClickImage(item: ImageItem) {
+                        callback?.invoke(modelItem)
+                    }
+                })
+                newsFeedViewPager.apply {
+                    adapter = bannerAdapter
+                    newsFeedViewPager.setPageTransformer(animator)
                 }
+                bannerAdapter.updateData(modelItem.imagesItem as MutableList<ImageItem>)
+                TabLayoutMediator(tabLayout, newsFeedViewPager) { _, _ ->
+                }.attach()
             }
         }
     }

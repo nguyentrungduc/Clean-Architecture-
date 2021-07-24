@@ -1,6 +1,5 @@
 package com.example.cleanarchitecture.data.remote
 
-import android.util.Log
 import com.example.cleanarchitecture.data.model.*
 import com.example.cleanarchitecture.data.remote.api.NewsFeedApi
 import com.example.cleanarchitecture.domain.model.DetailNewsFeed
@@ -17,11 +16,11 @@ class NewsFeedRemoteRepositoryImpl @Inject constructor(
     private val detailNewsFeedEntityMapper: DetailNewsFeedEntityMapper
 ) : NewsfeedRepository {
 
-    override fun getNewFeed(): Observable<ListNewsFeed> {
+    override fun getNewFeed(isConnected: Boolean): Observable<ListNewsFeed> {
         return newsFeedApi.getNewFeeds()
-            .map {
-                listNewsNewFeedEntityMapper.mapToDomain(it)
-            }
+                .map {
+                    listNewsNewFeedEntityMapper.mapToDomain(it)
+                }
     }
 
     override fun getDetailFeed(): Observable<DetailNewsFeed> {

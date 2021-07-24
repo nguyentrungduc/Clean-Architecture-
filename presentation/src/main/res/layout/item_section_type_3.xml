@@ -7,20 +7,20 @@
         <import type="android.view.View" />
 
         <variable
-            name="newsFeed"
-            type="com.example.cleanarchitecture.model.NewsFeedItem" />
+            name="section"
+            type="com.example.cleanarchitecture.model.SectionItem" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="116dp"
+        android:layout_height="92dp"
         android:paddingVertical="@dimen/dp_12">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/image_feed"
-            imageUrl="@{newsFeed.imagesItem}"
-            android:layout_width="@dimen/dp_114"
+            loadUrl="@{section.contentItem.href}"
+            android:layout_width="@dimen/dp_108"
             android:layout_height="@dimen/dp_80"
             android:layout_marginStart="@dimen/dp_16"
             android:scaleType="fitXY"
@@ -34,36 +34,12 @@
             android:layout_marginStart="@dimen/dp_16"
             android:layout_marginEnd="@dimen/dp_8"
             android:maxLines="3"
-            android:text="@{newsFeed.title}"
+            android:text="@{section.contentItem.caption}"
             android:textColor="@color/black"
             android:textSize="@dimen/sp_15"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/image_feed"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_publisher_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_12"
-            android:layout_marginTop="@dimen/dp_20"
-            android:layout_marginBottom="@dimen/dp_8"
-            android:text="@{newsFeed.publisher.name}"
-            android:textColor="@color/gray"
-            android:textSize="@dimen/sp_12"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/image_feed" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dp_8"
-            android:layout_marginBottom="@dimen/dp_8"
-            android:text="@{newsFeed.publishedDate}"
-            android:textColor="@color/gray"
-            android:textSize="@dimen/sp_12"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/img_cancel" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/img_cancel"
@@ -71,7 +47,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_12"
             android:tint="@color/gray"
-            android:layout_marginBottom="@dimen/dp_10"
             android:src="@drawable/ic_baseline_cancel_presentation_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

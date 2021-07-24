@@ -10,11 +10,11 @@ open class NewsFeedUseCases @Inject constructor(
     private val newsfeedRepository: NewsfeedRepository
 ) : UseCase<NewsFeedUseCases.Params, Observable<ListNewsFeed>>() {
     override fun createObservable(params: Params?): Observable<ListNewsFeed> {
-        return newsfeedRepository.getNewFeed()
+        return newsfeedRepository.getNewFeed(params?.isConnected ?: true)
     }
 
     override fun onCleared() {
     }
 
-    class Params()
+    data class Params(val isConnected: Boolean)
 }

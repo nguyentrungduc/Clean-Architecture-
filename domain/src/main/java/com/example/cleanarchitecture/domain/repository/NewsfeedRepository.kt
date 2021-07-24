@@ -6,7 +6,7 @@ import com.example.cleanarchitecture.domain.model.NewsFeed
 import io.reactivex.Observable
 
 interface NewsfeedRepository : Repository{
-    fun getNewFeed(): Observable<ListNewsFeed>
+    fun getNewFeed(isConnected: Boolean): Observable<ListNewsFeed>
 
     fun getDetailFeed(): Observable<DetailNewsFeed>
 

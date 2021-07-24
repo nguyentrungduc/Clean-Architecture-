@@ -1,6 +1,5 @@
 package com.example.cleanarchitecture.data.model
 
-
 import com.example.cleanarchitecture.data.base.RealmEntityMapper
 import com.example.cleanarchitecture.domain.model.Image
 import com.example.cleanarchitecture.domain.model.NewsFeed
@@ -8,10 +7,13 @@ import com.google.gson.annotations.SerializedName
 import io.realm.RealmList
 import io.realm.RealmObject
 import io.realm.annotations.Ignore
+import io.realm.annotations.PrimaryKey
 import javax.inject.Inject
 
 
 open class NewsFeedEntity(
+    @PrimaryKey
+    var primaryKey: String? = null,
     @SerializedName("document_id")
     var documentId: String = "",
     @SerializedName("title")
@@ -34,7 +36,10 @@ open class NewsFeedEntity(
     @SerializedName("content")
     var content: Any? = null
 ) : RealmObject() {
-    constructor() : this("", null, null,null, null, null, null,null, null, null)
+    constructor() : this(null,"", null, null,null, null, null, null,null, null, null)
+    init {
+        primaryKey = documentId + title
+    }
 }
 
 class NewsFeedEntityMapper @Inject constructor(private val publisherEntityMapper: PublisherEntityMapper,
@@ -51,7 +56,7 @@ class NewsFeedEntityMapper @Inject constructor(private val publisherEntityMapper
         entity.content
     )
 
-    override fun mapToEntity(model: NewsFeed) = NewsFeedEntity(
+    override fun mapToEntity(model: NewsFeed) = NewsFeedEntity(model.documentId + model.title,
         model.documentId, model.title, model.description, model.contentType, model.publishedDate,
         model.publisher?.let { publisherEntityMapper.mapToEntity(it) },
         model.originUrl,

@@ -12,13 +12,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:paddingVertical="@dimen/dp_12">
+        android:layout_height="172dp">
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_4"
             android:maxLines="2"
             android:paddingHorizontal="@dimen/dp_8"
             android:text="@{newsFeed.title}"
@@ -31,43 +31,79 @@
             android:id="@+id/img1"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginVertical="@dimen/dp_8"
             android:layout_marginStart="@dimen/dp_8"
-            android:layout_marginTop="@dimen/dp_8"
             android:scaleType="fitXY"
             app:imageUrlWithIndex="@{newsFeed.imagesItem}"
             app:index="@{0}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tv_publisher_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
-            app:layout_constraintWidth_percent="0.3" />
+            app:layout_constraintWidth_percent="0.31" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/img2"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginVertical="@dimen/dp_8"
+            android:layout_marginBottom="@dimen/dp_8"
             android:scaleType="fitXY"
             app:imageUrlWithIndex="@{newsFeed.imagesItem}"
             app:index="@{1}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tv_publisher_name"
             app:layout_constraintEnd_toStartOf="@id/img3"
             app:layout_constraintStart_toEndOf="@id/img1"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
-            app:layout_constraintWidth_percent="0.3" />
+            app:layout_constraintWidth_percent="0.31" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/img3"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginVertical="@dimen/dp_8"
             android:layout_marginTop="@dimen/dp_8"
-            android:layout_marginEnd="@dimen/dp_8"
             android:scaleType="fitXY"
             app:imageUrlWithIndex="@{newsFeed.imagesItem}"
             app:index="@{2}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tv_publisher_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
-            app:layout_constraintWidth_percent="0.3" />
+            app:layout_constraintWidth_percent="0.31" />
+
+        <TextView
+            android:id="@+id/tv_publisher_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:text="@{newsFeed.publisher.name}"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/sp_12"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_8"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:text="@{newsFeed.publishedDate}"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/sp_12"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/img_cancel" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_12"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:src="@drawable/ic_baseline_cancel_presentation_24"
+            android:tint="@color/gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

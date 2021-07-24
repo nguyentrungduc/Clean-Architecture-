@@ -18,8 +18,8 @@ class NewsFeedViewModel @Inject constructor(
     val newsfeed = MutableLiveData<ListNewsFeedItem>()
     val loading = MutableLiveData<Boolean>().apply { postValue(false) }
 
-    fun getNewsFeed() {
-        newsFeedUseCases.createObservable(NewsFeedUseCases.Params())
+    fun getNewsFeed(isConnected: Boolean) {
+        newsFeedUseCases.createObservable(NewsFeedUseCases.Params(isConnected))
             .compose(RxUtils.applyObservableScheduler(loading))
             .doFinally { loading.value = false }
             .map {

@@ -5,7 +5,7 @@ import com.example.cleanarchitecture.base.ModelItem
 import com.example.cleanarchitecture.domain.model.Section
 import javax.inject.Inject
 
-data class SectionItem(val sectionType: Int?,
+data class SectionItem(val sectionType: Int,
                   val contentItem: ContentItem?) : ModelItem(){
 }
 
@@ -17,6 +17,6 @@ class SectionItemMapper @Inject constructor(private val contentItemMapper: Conte
     )
 
     override fun mapToPresentation(model: Section)= SectionItem (
-        model.sectionType, model.content?.let { contentItemMapper.mapToPresentation(it) }
+        model.sectionType ?: 0, model.content?.let { contentItemMapper.mapToPresentation(it) }
     )
 }

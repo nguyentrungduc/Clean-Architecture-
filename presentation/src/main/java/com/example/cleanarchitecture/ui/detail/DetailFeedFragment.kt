@@ -5,10 +5,13 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.cleanarchitecture.BR
 import com.example.cleanarchitecture.R
 import com.example.cleanarchitecture.base.BaseFragment
 import com.example.cleanarchitecture.databinding.FragmentDetailFeedBinding
+import com.example.cleanarchitecture.ui.detail.adapter.SectionAdapter
+import com.example.cleanarchitecture.util.autoCleared
 
 class DetailFeedFragment : BaseFragment<FragmentDetailFeedBinding, DetailFeedViewModel>() {
 
@@ -19,6 +22,8 @@ class DetailFeedFragment : BaseFragment<FragmentDetailFeedBinding, DetailFeedVie
 
     override val layoutId: Int = R.layout.fragment_detail_feed
 
+    private var sectionAdapter by autoCleared<SectionAdapter>()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getDetailFeed()
@@ -27,10 +32,18 @@ class DetailFeedFragment : BaseFragment<FragmentDetailFeedBinding, DetailFeedVie
     }
 
     private fun bindViews() {
+        sectionAdapter = SectionAdapter()
         with(viewDataBinding) {
-            imvBack.setOnClickListener {
+            layoutAppbar.imvBack.setOnClickListener {
                 findNavController().popBackStack()
             }
+            listAnotherNews.adapter = sectionAdapter
+            listAnotherNews.addItemDecoration(
+                DividerItemDecoration(
+                    context,
+                    DividerItemDecoration.VERTICAL
+                )
+            )
         }
     }
 
@@ -40,6 +53,7 @@ class DetailFeedFragment : BaseFragment<FragmentDetailFeedBinding, DetailFeedVie
         }
         detail.observe(viewLifecycleOwner) {
             viewDataBinding.newsFeed = it
+            sectionAdapter.submitList(it.sectionItems)
         }
     }
 }

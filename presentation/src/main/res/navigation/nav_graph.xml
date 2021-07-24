@@ -20,13 +20,13 @@
 
     <fragment
         android:id="@+id/accountFragment"
+        android:label="Account"
         android:name="com.example.cleanarchitecture.ui.account.AccountFragment"
-        android:label="Search"
         tools:layout="@layout/fragment_account" />
 
     <fragment
         android:id="@+id/detailFeedFragment"
         android:name="com.example.cleanarchitecture.ui.detail.DetailFeedFragment"
-        android:label="Search"
-        tools:layout="@layout/fragment_account"/>
+        android:label="Detail"
+        tools:layout="@layout/fragment_detail_feed"/>
 </navigation>
