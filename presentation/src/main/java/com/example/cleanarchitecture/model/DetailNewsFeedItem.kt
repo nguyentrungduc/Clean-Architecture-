@@ -37,8 +37,6 @@ class DetailNewsFeedItemMapper @Inject constructor(
         model.publisher?.let { publisherItemMapper.mapToPresentation(it)  },
         model.templateType,
         model.sectionEntities?.let { it.map { sectionItemMapper.mapToPresentation(it) } }
-//            ?.filter {
-//            !it.contentItem?.href.isNullOrBlank()}
     )
 
 }

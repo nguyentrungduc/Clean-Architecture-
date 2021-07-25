@@ -1,7 +1,6 @@
 package com.example.cleanarchitecture.data.di
 
 import com.example.cleanarchitecture.data.remote.api.NewsFeedApi
-import com.example.cleanarchitecture.data.remote.api.UserApi
 import com.example.cleanarchitecture.data.remote.builder.RetrofitBuilder
 import com.example.cleanarchitecture.data.remote.interceptor.HeaderInterceptor
 import dagger.Module
@@ -17,10 +16,6 @@ class NetworkModule {
     fun provideRetrofit(retrofitBuilder: RetrofitBuilder, headerInterceptor: HeaderInterceptor): Retrofit = retrofitBuilder
         .addInterceptors(headerInterceptor)
         .build()
-
-    @Provides
-    @Singleton
-    fun provideUsersApi(retrofit: Retrofit): UserApi = retrofit.create(UserApi::class.java)
 
     @Provides
     @Singleton
